@@ -1,0 +1,10 @@
+{
+  "Name": "Expl0sLazyDialogues",
+  "Author": "Expl0",
+  "Version": "1.0.0",
+  "Description": "Lets you control Dialogue via your Keyboard.",
+  "UniqueID": "Expl0.Expl0sLazyDialogues",
+  "EntryDll": "Expl0sLazyDialogues.dll",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": []
+}
