@@ -12,11 +12,15 @@ namespace Expl0sLazyDialogues
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
+        public static IModHelper ModHelper;
+
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="IHelper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper IHelper)
         {
             #region setup
+            ModHelper = IHelper;
+
             var csHarmony = new Harmony(this.ModManifest.UniqueID);
 
             ObjectPatches.Initialize(this.Monitor, IHelper);
