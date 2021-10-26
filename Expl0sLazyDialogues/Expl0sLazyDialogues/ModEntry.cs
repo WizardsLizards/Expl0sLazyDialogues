@@ -12,7 +12,8 @@ namespace Expl0sLazyDialogues
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
-        public static IModHelper ModHelper;
+        internal static IModHelper ModHelper;
+        internal static ModConfig Configuration;
 
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="IHelper">Provides simplified APIs for writing mods.</param>
@@ -22,6 +23,8 @@ namespace Expl0sLazyDialogues
             ModHelper = IHelper;
 
             var csHarmony = new Harmony(this.ModManifest.UniqueID);
+
+            Configuration = ModHelper.ReadConfig<ModConfig>();
 
             ObjectPatches.Initialize(this.Monitor, IHelper);
             #endregion
