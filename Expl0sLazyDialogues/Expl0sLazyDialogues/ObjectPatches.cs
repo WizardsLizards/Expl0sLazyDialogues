@@ -29,8 +29,8 @@ namespace Expl0sLazyDialogues
         {
             try
             {
-                var KeyName = key.ToString();
-                var KeyArray = ModEntry.Configuration.DialogueKey.ToString().Split(',').Select(x => x.Replace(" ", string.Empty)).ToList();
+                string KeyName = key.ToString();
+                List<string> KeyArray = GetKeyArray();
 
                 //if (key == Keys.Space) //ModEntry.Configuration.DialogueKey - Possibly a list of keys -> split by ,
                 if (KeyArray.Contains(KeyName))
@@ -215,20 +215,65 @@ namespace Expl0sLazyDialogues
 
         internal static string GetAddOnString()
         {
-            string Key = ModEntry.Configuration.DialogueKey.ToString();
+            if (ModEntry.Configuration.MessageMode != 0)
+            {
+                List<string> KeyList = GetKeyArray();
 
-            if (ModEntry.Configuration.MessageMode == 2)
-            {
-                return $"^^> Press {Key} to continue...";
-            }
-            else if (ModEntry.Configuration.MessageMode == 1)
-            {
-                return $"^^> {Key}...";
+                string LongStart = ModEntry.ModHelper.Translation.Get("display.LongStart"); //"Press";
+                string LongEnd = ModEntry.ModHelper.Translation.Get("display.LongEnd"); //"to continue";
+
+                string Keys = "";
+                
+                for(int Counter = 0; Counter < KeyList.Count; Counter++)
+                {
+                    switch (KeyList[Counter])
+                    {
+                        //TODO: Make this tokens
+                        case "Space":
+                            KeyList[Counter] = ModEntry.ModHelper.Translation.Get("display.Space");
+                            break;
+                        case "Enter":
+                            KeyList[Counter] = ModEntry.ModHelper.Translation.Get("display.Enter");
+                            break;
+                        case "Backspace":
+                            KeyList[Counter] = ModEntry.ModHelper.Translation.Get("display.Backspace");
+                            break;
+                    }
+                }
+
+                if(KeyList.Count > 1)
+                { 
+                    Keys = String.Join(", ", KeyList.Except(new List<string>() { KeyList[KeyList.Count - 1] })) + " " + ModEntry.ModHelper.Translation.Get("display.Or") + " " + KeyList[KeyList.Count - 1];
+                }
+                else
+                {
+                    Keys = KeyList[0];
+                }
+
+                string Display = "^^> ";
+
+                if (ModEntry.Configuration.MessageMode == 2)
+                {
+                    Display = Display + LongStart + Keys + LongEnd;
+                }
+                else if (ModEntry.Configuration.MessageMode == 1)
+                {
+                    Display = Display + Keys;
+                }
+
+                Display = Display + "...";
+
+                return Display;
             }
             else
             {
                 return "";
             }
+        }
+
+        internal static List<string> GetKeyArray()
+        {
+            return ModEntry.Configuration.DialogueKey.ToString().Split(',').Select(x => x.Replace(" ", string.Empty)).ToList();
         }
     }
 }

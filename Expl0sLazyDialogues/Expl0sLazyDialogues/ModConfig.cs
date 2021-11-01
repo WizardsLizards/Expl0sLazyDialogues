@@ -9,7 +9,7 @@ namespace Expl0sLazyDialogues
 {
     class ModConfig
     {
-        //No Messages = 0, Small Messages = 1, Long Messages = 2
+        //No Messages = 0, Small Messages = 1, Long Messages = 2, (Symbol = 3)
         public int MessageMode { get; set; } = 2;
 
         //No Numbers = 0, Numbers = 1
