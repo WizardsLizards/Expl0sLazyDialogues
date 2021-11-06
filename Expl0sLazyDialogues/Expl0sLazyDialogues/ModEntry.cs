@@ -57,6 +57,53 @@ namespace Expl0sLazyDialogues
                prefix: new HarmonyMethod(typeof(ObjectPatches), nameof(ObjectPatches.DialogeBox_Question_Prefix))
             );
             #endregion
+
+            #region events
+            ModHelper.Events.Input.ButtonPressed += OnDialogueButtonPressed;
+            #endregion
+        }
+
+        internal void OnDialogueButtonPressed(object sender, ButtonPressedEventArgs e)
+        //internal static bool receiveKeyPress_Prefix(DialogueBox __instance, Keys key)
+        {
+            //TODO: Only run once ingame
+            try
+            {
+                if(Context.IsWorldReady == true)
+                {
+                    string KeyName = e.Button.ToString();
+                    List<string> KeyArray = ObjectPatches.GetKeyArrayInitiateDialogue();
+
+                    if (KeyArray.Contains(KeyName))
+                    {
+                        Game1.addHUDMessage(new HUDMessage(Game1.player.FacingDirection.ToString()));
+
+                        //Check that the dialogue can be initiated
+                        if (true)
+                        {
+                            Vector2 PlayerLocation = Game1.player.getTileLocation();
+                            //0 = up, 1 = right, 2 = down, 3 = left
+                            int PlayerDirection = Game1.player.FacingDirection;
+
+                            List<Vector2> TilesToCheck = new List<Vector2>();
+
+                            //fill TilesToCheck
+
+                            //NPCs first
+                            foreach (NPC TempNPC in Game1.currentLocation.characters)
+                            {
+                                //Game1.currentLocation.isCharacterAtTile
+                            }
+
+                            //Object after
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjectPatches.IMonitor.Log($"Failed in {nameof(OnDialogueButtonPressed)}:\n{ex}", LogLevel.Error);
+            }
         }
     }
 }

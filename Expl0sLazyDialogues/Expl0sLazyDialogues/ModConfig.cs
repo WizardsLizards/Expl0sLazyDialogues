@@ -15,10 +15,22 @@ namespace Expl0sLazyDialogues
         //No Numbers = 0, Numbers = 1
         public int NumberMode { get; set; } = 1;
 
-        //DialogueKey default: Space
-        public KeybindList DialogueKey { get; set; } = KeybindList.Parse("Space");
+        //DialogueKeys default: Space
+        public KeybindList DialogueKeys { get; set; } = KeybindList.Parse("Space");
+
+        //InitiateDialogueKeys default: Space
+        public KeybindList InitiateDialogueKeys { get; set; } = KeybindList.Parse("Space");
 
         //Initiate Dialogue with Dialogue Key
         public bool InitiateWithKey { get; set; } = true;
+
+        //Initiates Dialogue even if target is 2 tiles away
+        public bool CheckTwoSpaces { get; set; } = true;
+
+        //Initiates Dialogue even if target is to the side of frontal tile
+        public bool CheckToTheSidesOne { get; set; } = true;
+
+        //Initiates Dialogue even if target is 2 tiles away to the side
+        public bool CheckToTheSidesTwo { get; set; } = false;
     }
 }

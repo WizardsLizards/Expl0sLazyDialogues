@@ -30,7 +30,7 @@ namespace Expl0sLazyDialogues
             try
             {
                 string KeyName = key.ToString();
-                List<string> KeyArray = GetKeyArray();
+                List<string> KeyArray = GetKeyArrayDialogue();
 
                 //if (key == Keys.Space) //ModEntry.Configuration.DialogueKey - Possibly a list of keys -> split by ,
                 if (KeyArray.Contains(KeyName))
@@ -217,7 +217,7 @@ namespace Expl0sLazyDialogues
         {
             if (ModEntry.Configuration.MessageMode != 0)
             {
-                List<string> KeyList = GetKeyArray();
+                List<string> KeyList = GetKeyArrayDialogue();
 
                 string LongStart = ModEntry.ModHelper.Translation.Get("display.LongStart"); //"Press";
                 string LongEnd = ModEntry.ModHelper.Translation.Get("display.LongEnd"); //"to continue";
@@ -271,9 +271,14 @@ namespace Expl0sLazyDialogues
             }
         }
 
-        internal static List<string> GetKeyArray()
+        internal static List<string> GetKeyArrayDialogue()
         {
-            return ModEntry.Configuration.DialogueKey.ToString().Split(',').Select(x => x.Replace(" ", string.Empty)).ToList();
+            return ModEntry.Configuration.DialogueKeys.ToString().Split(',').Select(x => x.Replace(" ", string.Empty)).ToList();
+        }
+
+        internal static List<string> GetKeyArrayInitiateDialogue()
+        {
+            return ModEntry.Configuration.InitiateDialogueKeys.ToString().Split(',').Select(x => x.Replace(" ", string.Empty)).ToList();
         }
     }
 }
